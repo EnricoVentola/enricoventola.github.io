@@ -14,19 +14,20 @@ _Part 2 (coming soon) – Setting up Traefik Reverse Proxy and sample Docker con
 
 This is what I’m running:
 
-•    Standard home broadband with a dynamic public IP
-•    pfSense 25.11 as the edge router/firewall.
-•    Dell PowerEdge T110 as a Docker host (old, reliable, and refuses to die)
-•    Traefik as the reverse proxy for internal routing to containers
-•    **Docker containers** hosting my services
+- Standard home broadband with a dynamic public IP
+- pfSense 25.11 as the edge router/firewall.
+- Dell PowerEdge T110 as a Docker host (old, reliable, and refuses to die)
+- Traefik as the reverse proxy for internal routing to containers
+- **Docker containers** hosting my services
 
 The goal is:
 
-1.    Make services reachable via friendly hostnames
-2.    Keep DNS updated automatically as my IP changes
-3.    Ensure inbound traffic must come via Cloudflare (no direct IP hits)
-4.    Route everything cleanly to the right Docker service without endless manual config
-5.    Implement security best practices and minimise complexity where possible.
+- Make services reachable via friendly hostnames
+- Keep DNS updated automatically as my IP changes
+- Ensure inbound traffic must come via Cloudflare (no direct IP hits)
+- Route everything cleanly to the right Docker service without endless manual config
+- Implement security best practices and minimise complexity where possible.
+
 
 At this point I assume you have a domain name, and you are using CloudFlare name servers.
 
@@ -35,11 +36,12 @@ At this point I assume you have a domain name, and you are using CloudFlare name
 
 With a dynamic public IP, manually updating DNS records is a non-starter. Plenty of DynDNS tools can do it, but I wanted to avoid bolting on yet another script or container if pfSense could handle it natively.  pfSense supports Dynamic DNS out of the box, and it can call a Cloudflare API to update DNS records automatically.
 
-Login to CloudFlare, goto [API Tokens | Cloudflare](https://dash.cloudflare.com/profile/api-tokens).
+
+Login to CloudFlare, goto ([API Tokens, Cloudflare](https://dash.cloudflare.com/profile/api-tokens)).
 
 Under **API Token Templates,**  select **Edit zone DNS** then **Use template.**
 
-We should operate the principle of _Least Privilege(_[Least Privilege Principle | OWASP Foundation](https://owasp.org/www-community/controls/Least_Privilege_Principle)_)_, so lets go to **Zone Resources** and select only the DNS domain that we need.
+We should operate the principle of _Least Privilege([Least Privilege Principle | OWASP Foundation](https://owasp.org/www-community/controls/Least_Privilege_Principle)), so lets go to **Zone Resources** and select only the DNS domain that we need.
 
 Click **Create Token**, copy the token and save it for later.
 
@@ -111,17 +113,17 @@ First, we need to forward all public traffic to the Traefik machine that we conf
 
 DNAT is the way to go:
 
-In Firewall > NAT: Create a new rule.
+_In Firewall > NAT: Create a new rule.
 Interface: WAN
 Address Family: IPv4
 Protocol: TCP/UDP
 Source: Address or Alias
 
 Type: Select the name of the list you created above
-“pfB\_ALLOWED\_PUBLIC\_INBOUND\_v4”
+“pfB\ALLOWED\PUBLIC\INBOUND\v4”
 
 Destination: WAN Address
 Destination port range: HTTPS for both
 Redirect target IP: Alias or Address
 Type: Enter the IP address of Traefik reverse proxy, for me it’s 10.1.40.36
-Redirect target port: HTTPS
+Redirect target port: HTTPS_
