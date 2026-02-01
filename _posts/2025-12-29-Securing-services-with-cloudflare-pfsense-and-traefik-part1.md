@@ -64,8 +64,7 @@ If you already have an item in the list, it’s better to duplicate because it w
 Click **Save & Force Update.**
 
 You should see something like this:
-
-![PFB.png](/assets/img/PFB.png)
+![DynDNS.png]({{site.baseurl}}/assets/img/DynDNS.png)
 
 The green check means my IP address has synced to to a Cloudflare DNS A Record.
 
@@ -88,6 +87,7 @@ Once installed, goto **Firewall > pfBlockerNG > IP > IPv4 > Add**
 CloudFlare published their edge IP addresses (IPv6 too) at [https://www.cloudflare.com/ips-v4](https://www.cloudflare.com/ips-v4) or ips-v6
 
 Configure it like this:
+![PFB.png](/assets/img/PFB.png)
 
 Also, the following:
 
@@ -97,7 +97,11 @@ Also, the following:
 
 Click **Save IPv4 Settings,** then go back to the PFB main menu, select **Update > Run.** This will create and populate the list.
 
+![PFBRule.png]({{site.baseurl}}/assets/img/PFBRule.png)
+
 In Firewall > WAN: Create a new rule.
+
+![FWRule.png]({{site.baseurl}}/assets/img/FWRule.png)
 
 Select TCP/UDP, set sources type to “Address or Alias”, then start typing the name of the list that you created in the previous step, it will populate. Then set your port to 443 for HTTPS, the rest is optional.
 
