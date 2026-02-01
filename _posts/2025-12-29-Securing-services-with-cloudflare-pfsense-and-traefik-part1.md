@@ -41,7 +41,7 @@ Login to CloudFlare, goto ([API Tokens, Cloudflare](https://dash.cloudflare.com/
 
 Under **API Token Templates,**  select **Edit zone DNS** then **Use template.**
 
-We should operate the principle of _Least Privilege([Least Privilege Principle | OWASP Foundation](https://owasp.org/www-community/controls/Least_Privilege_Principle)), so lets go to **Zone Resources** and select only the DNS domain that we need.
+We should operate the principle of Least Privilege([Least Privilege Principle | OWASP Foundation](https://owasp.org/www-community/controls/Least_Privilege_Principle)), so lets go to **Zone Resources** and select only the DNS domain that we need.
 
 Click **Create Token**, copy the token and save it for later.
 
@@ -51,15 +51,13 @@ Login to PfSense, goto **Services** > **Dynamic DNS** > **Add**.
 
 If you already have an item in the list, it’s better to duplicate because it will copy an existing CloudFlare token into a new record.
 
-**Service Type:** Cloudflare
-**Interface to monitor:** WAN (typically the you want to track)
-**Hostname:**
-            First box: Enter the hostname like “corp”.
-            Second box: Enter the root domain like “contoso.com”.
+- **Service Type:** Cloudflare
+- **Interface to monitor:** WAN (typically the you want to track)
+- **Hostname:** Hostname: "corp" domain "contoso.com"
+- **Cloudflare Proxy:** Enable (I’ll explain later)
+- **Username:** Use your CF account username
+- **Password:** Use the API token that we just created.
 
-**Cloudflare Proxy:** Enable (I’ll explain later)
-**Username:** Use your CF account username
-**Password:** Use the API token that we just created.
 
 Click **Save & Force Update.**
 
@@ -117,17 +115,19 @@ First, we need to forward all public traffic to the Traefik machine that we conf
 
 DNAT is the way to go:
 
-_In Firewall > NAT: Create a new rule.
-Interface: WAN
-Address Family: IPv4
-Protocol: TCP/UDP
-Source: Address or Alias
+In **Firewall > NAT**: Create a new rule.
+- Interface: WAN
+- Address Family: IPv4
+- Protocol: TCP/UDP
+- Source: Address or Alias
+
 
 Type: Select the name of the list you created above
-“pfB\ALLOWED\PUBLIC\INBOUND\v4”
+_“pfB\ALLOWED\PUBLIC\INBOUND\v4”_
 
-Destination: WAN Address
-Destination port range: HTTPS for both
-Redirect target IP: Alias or Address
-Type: Enter the IP address of Traefik reverse proxy, for me it’s 10.1.40.36
-Redirect target port: HTTPS_
+- Destination: WAN Address
+- Destination port range: HTTPS for both
+- Redirect target IP: Alias or Address
+- Type: Enter the IP address of Traefik reverse proxy, for me it’s 10.1.40.36
+- Redirect target port: HTTPS
+
