@@ -63,7 +63,7 @@ Click **Save & Force Update.**
 
 You should see something like this:
 
-![PFB.png]({{site.baseurl}}/_media/PFB.png)
+![PFB.png]({{site.baseurl}}/_media/PFB.png)![PFB.png]({{site.baseurl}}/assets/img/PFB.png)
 
 The green check means my IP address has synced to to a Cloudflare DNS A Record.
 
