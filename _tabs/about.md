@@ -13,3 +13,5 @@ You’ll probably see the odd post about adventure sports too — it’s my esca
 
 I enjoy building and testing ideas in my **HomeLab** and wish to contribute to **open-source** where I can.
 
+[Credly](https://www.credly.com/users/enrico-ventola/badges#credly)
+[LinkedIn](https://www.linkedin.com/in/enricoventola/)
